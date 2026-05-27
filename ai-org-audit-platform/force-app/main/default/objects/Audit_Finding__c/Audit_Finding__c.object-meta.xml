@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Audit finding record linked to an audit run.</description>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <enableActivities>false</enableActivities>
+    <enableReports>true</enableReports>
+    <label>Audit Finding</label>
+    <nameField>
+        <type>AutoNumber</type>
+        <label>Audit Finding Number</label>
+        <displayFormat>AF-{0000}</displayFormat>
+    </nameField>
+    <pluralLabel>Audit Findings</pluralLabel>
+    <sharingModel>ReadWrite</sharingModel>
+</CustomObject>

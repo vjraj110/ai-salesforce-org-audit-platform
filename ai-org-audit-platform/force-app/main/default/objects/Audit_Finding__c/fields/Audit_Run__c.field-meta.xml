@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Audit_Run__c</fullName>
+    <label>Audit Run</label>
+    <referenceTo>Audit_Run__c</referenceTo>
+    <relationshipName>Audit_Run</relationshipName>
+    <type>Lookup</type>
+    <required>false</required>
+</CustomField>
