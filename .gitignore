@@ -1,0 +1,9 @@
+# Ignore everything in the home repo by default
+/*
+
+# Keep this .gitignore tracked
+!.gitignore
+
+# Keep the project directory and all its contents
+!ai-org-audit-platform/
+!ai-org-audit-platform/**
