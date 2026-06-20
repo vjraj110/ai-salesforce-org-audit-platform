@@ -14,6 +14,9 @@ implements AuditRule {
             AuditResult result =
                 new AuditResult();
 
+            result.ruleId =
+                'SOQL_IN_LOOP';
+
             result.ruleName =
                 'SOQLInsideLoopRule';
 
