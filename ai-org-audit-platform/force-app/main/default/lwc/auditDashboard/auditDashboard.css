@@ -1,0 +1,221 @@
+.dashboardContainer {
+    max-width: 1200px;
+}
+.dashboardHeaderText {
+    margin-bottom: 1rem;
+}
+.dashboardTitle {
+    margin: 0;
+    font-size: 1.65rem;
+    font-weight: 700;
+}
+.dashboardSubtitle {
+    margin: 0.5rem 0 0;
+    color: #54698d;
+}
+.kpiCards {
+    margin-bottom: 1.5rem;
+}
+.kpiCard {
+    background: #ffffff;
+    border: 1px solid #d8dde6;
+    border-radius: 0.75rem;
+    padding: 1.25rem;
+    min-height: 150px;
+    box-shadow: 0 2px 4px rgba(16, 24, 40, 0.04);
+}
+.kpiHeader {
+    color: #67768a;
+    font-size: 0.85rem;
+    letter-spacing: 0.02em;
+    margin-bottom: 0.85rem;
+}
+.kpiValue {
+    font-size: 2.4rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+.kpiNote {
+    color: #67768a;
+    font-size: 0.9rem;
+}
+.healthBadge {
+    display: inline-flex;
+    padding: 0.5rem 0.85rem;
+    border-radius: 999px;
+    color: #ffffff;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+}
+.healthBadge.success {
+    background: #2e7d32;
+}
+.healthBadge.warning {
+    background: #f6a800;
+}
+.healthBadge.danger {
+    background: #c23934;
+}
+.healthBadge.neutral {
+    background: #6b778c;
+}
+.severityRow {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+}
+.severityBadge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 999px;
+    padding: 0.45rem 0.8rem;
+    color: #ffffff;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+}
+.severityBadge.critical {
+    background: #c23934;
+}
+.severityBadge.high {
+    background: #ff8f00;
+}
+.severityBadge.medium {
+    background: #0070d2;
+}
+.severityBadge.low {
+    background: #0b7f5a;
+}
+.chartsSection {
+    margin-bottom: 1.5rem;
+}
+.chartPanel {
+    background: #ffffff;
+    border: 1px solid #d8dde6;
+    border-radius: 0.75rem;
+    padding: 1rem;
+    box-shadow: 0 2px 4px rgba(16, 24, 40, 0.04);
+}
+.chartTitle {
+    margin: 0 0 1rem;
+    font-size: 1.05rem;
+    font-weight: 700;
+}
+.barChart,
+.trendChart {
+    display: grid;
+    gap: 0.85rem;
+}
+.barRow,
+.trendRow {
+    display: grid;
+    grid-template-columns: 1fr 4fr auto;
+    gap: 0.75rem;
+    align-items: center;
+}
+.barLabel,
+.trendLabel {
+    color: #2d3b51;
+    font-weight: 700;
+    min-width: 90px;
+}
+.barTrack,
+.trendTrack {
+    background: #eef1f6;
+    border-radius: 999px;
+    overflow: hidden;
+    min-height: 0.85rem;
+}
+.barFill {
+    height: 100%;
+    border-radius: 999px;
+}
+.criticalBar {
+    background: #c23934;
+}
+.highBar {
+    background: #ff8f00;
+}
+.mediumBar {
+    background: #0070d2;
+}
+.lowBar {
+    background: #0b7f5a;
+}
+.trendFill {
+    height: 100%;
+    background: #1589ee;
+    border-radius: 999px;
+}
+.barValue,
+.trendValue {
+    color: #1f2937;
+    font-weight: 700;
+    min-width: 42px;
+    text-align: right;
+}
+.findingsSection,
+.runsSection {
+    margin-bottom: 1.5rem;
+}
+.sectionHeader {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+.sectionHeader h2 {
+    margin: 0;
+    font-size: 1.15rem;
+}
+.sectionHeader p {
+    margin: 0;
+    color: #54698d;
+}
+.findingsTable {
+    background: #ffffff;
+    border: 1px solid #d8dde6;
+    border-radius: 0.75rem;
+    overflow: hidden;
+}
+.tableHeader,
+.tableRow {
+    display: grid;
+    grid-template-columns: 1.3fr 1.3fr 0.8fr 1fr 2fr;
+    gap: 0.75rem;
+    padding: 0.9rem 1rem;
+    align-items: center;
+}
+.tableHeader {
+    background: #f4f6f9;
+    font-weight: 700;
+    color: #1f2937;
+}
+.tableRow {
+    border-top: 1px solid #eef1f6;
+}
+.tableRow:nth-child(even) {
+    background: #f9fafb;
+}
+.tableColumn {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.recommendation {
+    min-width: 180px;
+}
+.emptyState {
+    padding: 2rem;
+    text-align: center;
+    color: #54698d;
+    font-size: 1rem;
+}
+.dashboardButton {
+    margin-top: 0.5rem;
+}

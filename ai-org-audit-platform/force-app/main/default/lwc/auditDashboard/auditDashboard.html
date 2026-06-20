@@ -1,46 +1,109 @@
 <template>
-
-    <lightning-card
-        title="Salesforce Org Audit Dashboard">
-
-        <div class="slds-p-around_medium">
+    <lightning-card title="Salesforce Org Audit Dashboard">
+        <div class="slds-p-around_medium dashboardContainer">
+            <div class="dashboardHeader slds-grid slds-grid_align-spread slds-wrap slds-m-bottom_medium">
+                <div class="dashboardHeaderText slds-col slds-size_1-of-1 slds-medium-size_2-of-3">
+                    <h1 class="dashboardTitle">Audit Dashboard</h1>
+                    <p class="dashboardSubtitle">Overview of findings, recent runs, and org health.</p>
+                </div>
+                <div class="dashboardButton slds-col slds-size_1-of-1 slds-medium-size_1-of-3 slds-text-align_right">
+                    <lightning-button label="Run Audit" variant="brand" onclick={handleRunAudit}></lightning-button>
+                </div>
+            </div>
 
             <template if:true={summary}>
+                <div class="kpiCards slds-grid slds-wrap slds-gutters slds-m-bottom_medium">
+                    <div class="kpiCard slds-col slds-size_1-of-1 slds-medium-size_1-of-3">
+                        <div class="kpiHeader">Health Score</div>
+                        <div class="kpiValue">{summary.healthScore}</div>
+                        <div class={healthClass}>{healthLabel}</div>
+                    </div>
+                    <div class="kpiCard slds-col slds-size_1-of-1 slds-medium-size_1-of-3">
+                        <div class="kpiHeader">Total Findings</div>
+                        <div class="kpiValue">{summary.totalFindings}</div>
+                        <div class="kpiNote">All active findings across the latest run.</div>
+                    </div>
+                    <div class="kpiCard slds-col slds-size_1-of-1 slds-medium-size_1-of-3">
+                        <div class="kpiHeader">Severity Breakdown</div>
+                        <div class="severityRow">
+                            <span class="severityBadge critical">Critical {summary.criticalCount}</span>
+                            <span class="severityBadge high">High {summary.highCount}</span>
+                        </div>
+                        <div class="severityRow">
+                            <span class="severityBadge medium">Medium {summary.mediumCount}</span>
+                            <span class="severityBadge low">Low {summary.lowCount}</span>
+                        </div>
+                    </div>
+                </div>
 
-                <p>
-                    Health Score:
-                    {summary.healthScore}
-                </p>
+                <div class="chartsSection slds-grid slds-wrap slds-gutters slds-m-bottom_medium">
+                    <section class="chartPanel slds-col slds-size_1-of-1 slds-large-size_1-of-2">
+                        <h2 class="chartTitle">Findings Distribution</h2>
+                        <div class="barChart">
+                            <template for:each={severityBars} for:item="bar">
+                                <div key={bar.label} class="barRow">
+                                    <span class="barLabel">{bar.label}</span>
+                                    <div class="barTrack">
+                                        <div class={bar.colorClass} style={bar.widthStyle}></div>
+                                    </div>
+                                    <span class="barValue">{bar.count}</span>
+                                </div>
+                            </template>
+                        </div>
+                    </section>
+                    <section class="chartPanel slds-col slds-size_1-of-1 slds-large-size_1-of-2">
+                        <h2 class="chartTitle">Health Trend</h2>
+                        <div class="trendChart">
+                            <template for:each={trendPoints} for:item="point">
+                                <div key={point.name} class="trendRow">
+                                    <span class="trendLabel">{point.name}</span>
+                                    <div class="trendTrack">
+                                        <div class="trendFill" style={point.widthStyle}></div>
+                                    </div>
+                                    <span class="trendValue">{point.score}</span>
+                                </div>
+                            </template>
+                        </div>
+                    </section>
+                </div>
 
-                <p>
-                    Total Findings:
-                    {summary.totalFindings}
-                </p>
+                <div class="findingsSection slds-m-bottom_medium">
+                    <div class="sectionHeader">
+                        <h2>Latest Findings</h2>
+                        <p>Showing the most recent issues detected in the org.</p>
+                    </div>
+                    <div class="findingsTable">
+                        <div class="tableHeader slds-grid slds-grid_align-spread">
+                            <span class="tableColumn component">Component</span>
+                            <span class="tableColumn rule">Rule</span>
+                            <span class="tableColumn severity">Severity</span>
+                            <span class="tableColumn category">Category</span>
+                            <span class="tableColumn recommendation">Recommendation</span>
+                        </div>
+                        <template for:each={findings} for:item="finding" for:index="index">
+                            <div key={finding.componentName} class="tableRow slds-grid slds-grid_align-spread">
+                                <span class="tableColumn component">{finding.componentName}</span>
+                                <span class="tableColumn rule">{finding.ruleName}</span>
+                                <span class="tableColumn severity"><span class={finding.severityClass}>{finding.severity}</span></span>
+                                <span class="tableColumn category">{finding.category}</span>
+                                <span class="tableColumn recommendation">{finding.recommendation}</span>
+                            </div>
+                        </template>
+                    </div>
+                </div>
 
-                <p>
-                    Critical:
-                    {summary.criticalCount}
-                </p>
-
-                <p>
-                    High:
-                    {summary.highCount}
-                </p>
-
-                <p>
-                    Medium:
-                    {summary.mediumCount}
-                </p>
-
-                <p>
-                    Low:
-                    {summary.lowCount}
-                </p>
-
+                <div class="runsSection">
+                    <div class="sectionHeader">
+                        <h2>Recent Audit Runs</h2>
+                        <p>Most recent scan runs and their score details.</p>
+                    </div>
+                    <lightning-datatable key-field="Id" data={runs} columns={runColumns} hide-checkbox-column></lightning-datatable>
+                </div>
             </template>
 
+            <template if:false={summary}>
+                <div class="emptyState">No audit results available yet. Run an audit to populate the dashboard.</div>
+            </template>
         </div>
-
     </lightning-card>
-
 </template>
