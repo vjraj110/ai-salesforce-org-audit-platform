@@ -1,0 +1,46 @@
+<template>
+
+    <lightning-card
+        title="Salesforce Org Audit Dashboard">
+
+        <div class="slds-p-around_medium">
+
+            <template if:true={summary}>
+
+                <p>
+                    Health Score:
+                    {summary.healthScore}
+                </p>
+
+                <p>
+                    Total Findings:
+                    {summary.totalFindings}
+                </p>
+
+                <p>
+                    Critical:
+                    {summary.criticalCount}
+                </p>
+
+                <p>
+                    High:
+                    {summary.highCount}
+                </p>
+
+                <p>
+                    Medium:
+                    {summary.mediumCount}
+                </p>
+
+                <p>
+                    Low:
+                    {summary.lowCount}
+                </p>
+
+            </template>
+
+        </div>
+
+    </lightning-card>
+
+</template>

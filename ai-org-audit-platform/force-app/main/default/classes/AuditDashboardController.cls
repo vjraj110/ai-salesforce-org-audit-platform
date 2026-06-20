@@ -1,15 +1,14 @@
 public with sharing class AuditDashboardController {
 
     @AuraEnabled(cacheable=true)
-    public static Map<String, Object> getDashboardSummary() {
-        Map<String, Object> summary = new Map<String, Object>{
-            'overallScore' => 0,
-            'criticalCount' => 0,
-            'highCount' => 0,
-            'mediumCount' => 0,
-            'lowCount' => 0,
-            'totalFindings' => 0
-        };
+    public static DashboardSummary getDashboardSummary() {
+        DashboardSummary summary = new DashboardSummary();
+        summary.healthScore = 0;
+        summary.criticalCount = 0;
+        summary.highCount = 0;
+        summary.mediumCount = 0;
+        summary.lowCount = 0;
+        summary.totalFindings = 0;
 
         List<Audit_Run__c> runs = [
             SELECT Overall_Score__c,
@@ -29,12 +28,12 @@ public with sharing class AuditDashboardController {
 
         Audit_Run__c latestRun = runs[0];
 
-        summary.put('overallScore', latestRun.Overall_Score__c);
-        summary.put('criticalCount', latestRun.Critical_Count__c);
-        summary.put('highCount', latestRun.High_Count__c);
-        summary.put('mediumCount', latestRun.Medium_Count__c);
-        summary.put('lowCount', latestRun.Low_Count__c);
-        summary.put('totalFindings', latestRun.Total_Findings__c);
+        summary.healthScore = latestRun.Overall_Score__c;
+        summary.criticalCount = latestRun.Critical_Count__c == null ? 0 : latestRun.Critical_Count__c.intValue();
+        summary.highCount = latestRun.High_Count__c == null ? 0 : latestRun.High_Count__c.intValue();
+        summary.mediumCount = latestRun.Medium_Count__c == null ? 0 : latestRun.Medium_Count__c.intValue();
+        summary.lowCount = latestRun.Low_Count__c == null ? 0 : latestRun.Low_Count__c.intValue();
+        summary.totalFindings = latestRun.Total_Findings__c == null ? 0 : latestRun.Total_Findings__c.intValue();
 
         return summary;
     }
