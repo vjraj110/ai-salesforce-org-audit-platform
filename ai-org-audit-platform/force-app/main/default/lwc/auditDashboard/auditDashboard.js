@@ -5,6 +5,7 @@ import { refreshApex } from '@salesforce/apex';
 import getDashboardSummary from '@salesforce/apex/AuditDashboardController.getDashboardSummary';
 import getLatestFindings from '@salesforce/apex/AuditDashboardController.getLatestFindings';
 import getRecentRuns from '@salesforce/apex/AuditDashboardController.getRecentRuns';
+import runDashboardAudit from '@salesforce/apex/AuditDashboardController.runDashboardAudit';
 
 export default class AuditDashboard extends LightningElement {
     summary;
@@ -149,11 +150,25 @@ export default class AuditDashboard extends LightningElement {
     }
 
     handleRunAudit() {
-        Promise.all([
-            refreshApex(this.wiredSummaryResult),
-            refreshApex(this.wiredFindingsResult),
-            refreshApex(this.wiredRunsResult)
-        ])
+        runDashboardAudit()
+            .then(() => {
+                const refreshPromises = [];
+                if (this.wiredSummaryResult) {
+                    refreshPromises.push(refreshApex(this.wiredSummaryResult));
+                }
+                if (this.wiredFindingsResult) {
+                    refreshPromises.push(refreshApex(this.wiredFindingsResult));
+                }
+                if (this.wiredRunsResult) {
+                    refreshPromises.push(refreshApex(this.wiredRunsResult));
+                }
+
+                if (!refreshPromises.length) {
+                    throw new Error('Dashboard data is not yet loaded for refresh.');
+                }
+
+                return Promise.all(refreshPromises);
+            })
             .then(() => {
                 this.dispatchEvent(
                     new ShowToastEvent({

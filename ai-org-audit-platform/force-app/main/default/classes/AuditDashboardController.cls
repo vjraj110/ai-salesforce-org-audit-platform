@@ -1,5 +1,10 @@
 public with sharing class AuditDashboardController {
 
+    @AuraEnabled
+    public static void runDashboardAudit() {
+        TestDataGenerator.generateSampleAuditData();
+    }
+
     @AuraEnabled(cacheable=true)
     public static DashboardSummary getDashboardSummary() {
         DashboardSummary summary = new DashboardSummary();

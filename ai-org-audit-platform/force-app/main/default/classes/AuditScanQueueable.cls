@@ -1,11 +1,6 @@
-public class AuditScanQueueable
-implements Queueable {
+public class AuditScanQueueable implements Queueable {
 
-    public void execute(
-        QueueableContext context
-    ) {
-
-        AuditExecutionService.executeAudit();
-
+    public void execute(QueueableContext context) {
+        AuditExecutionService.runAudit();
     }
 }
