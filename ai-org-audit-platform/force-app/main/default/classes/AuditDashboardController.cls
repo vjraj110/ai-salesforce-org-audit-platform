@@ -52,7 +52,15 @@ public with sharing class AuditDashboardController {
                    Rule_Name__c,
                    Severity__c,
                    Recommendation__c,
-                   Category__c
+                   Category__c,
+                   AI_Explanation__c,
+                   AI_Risk__c,
+                   AI_Business_Impact__c,
+                   AI_Impact__c,
+                   AI_Recommendation__c,
+                   AI_Code_Sample__c,
+                   AI_Confidence__c,
+                   AI_Status__c
             FROM Audit_Finding__c
             ORDER BY CreatedDate DESC
             LIMIT 50
@@ -63,6 +71,14 @@ public with sharing class AuditDashboardController {
             dto.severity = finding.Severity__c;
             dto.recommendation = finding.Recommendation__c;
             dto.category = finding.Category__c;
+            dto.aiExplanation = finding.AI_Explanation__c;
+            dto.aiRisk = finding.AI_Risk__c;
+            dto.aiBusinessImpact = finding.AI_Business_Impact__c;
+            dto.aiImpact = finding.AI_Impact__c;
+            dto.aiRecommendation = finding.AI_Recommendation__c;
+            dto.aiCodeSample = finding.AI_Code_Sample__c;
+            dto.aiConfidence = finding.AI_Confidence__c;
+            dto.aiStatus = finding.AI_Status__c;
             findings.add(dto);
         }
 

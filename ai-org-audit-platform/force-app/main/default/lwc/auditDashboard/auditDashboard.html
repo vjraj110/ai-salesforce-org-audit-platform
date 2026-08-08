@@ -79,6 +79,10 @@
                             <span class="tableColumn severity">Severity</span>
                             <span class="tableColumn category">Category</span>
                             <span class="tableColumn recommendation">Recommendation</span>
+                            <span class="tableColumn ai">AI Explanation</span>
+                            <span class="tableColumn ai">AI Business Impact</span>
+                            <span class="tableColumn ai">AI Confidence</span>
+                            <span class="tableColumn ai">AI Status</span>
                         </div>
                         <template for:each={findings} for:item="finding" for:index="index">
                             <div key={finding.componentName} class="tableRow slds-grid slds-grid_align-spread">
@@ -87,6 +91,10 @@
                                 <span class="tableColumn severity"><span class={finding.severityClass}>{finding.severity}</span></span>
                                 <span class="tableColumn category">{finding.category}</span>
                                 <span class="tableColumn recommendation">{finding.recommendation}</span>
+                                <span class="tableColumn ai">{finding.aiExplanation}</span>
+                                <span class="tableColumn ai">{finding.aiBusinessImpact}</span>
+                                <span class="tableColumn ai">{finding.aiConfidence}</span>
+                                <span class="tableColumn ai">{finding.aiStatus}</span>
                             </div>
                         </template>
                     </div>
