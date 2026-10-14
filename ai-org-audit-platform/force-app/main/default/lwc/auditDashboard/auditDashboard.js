@@ -12,6 +12,9 @@ export default class AuditDashboard extends LightningElement {
     findings = [];
     runs = [];
 
+    pageSize = 10;
+    currentPage = 1;
+
     wiredSummaryResult;
     wiredFindingsResult;
     wiredRunsResult;
@@ -36,6 +39,7 @@ export default class AuditDashboard extends LightningElement {
         const { data, error } = result;
 
         if (data) {
+            this.currentPage = 1;
             this.findings = data.map((finding) => ({
                 ...finding,
                 severityClass: this.getSeverityClass(finding.severity)
@@ -59,6 +63,42 @@ export default class AuditDashboard extends LightningElement {
         if (error) {
             console.error(error);
         }
+    }
+
+    get totalPages() {
+        if (!this.findings || !this.findings.length) {
+            return 1;
+        }
+        return Math.max(1, Math.ceil(this.findings.length / this.pageSize));
+    }
+
+    get currentPageFindings() {
+        if (!this.findings || !this.findings.length) {
+            return [];
+        }
+
+        const startIndex = (this.currentPage - 1) * this.pageSize;
+        const endIndex = startIndex + this.pageSize;
+        return this.findings.slice(startIndex, endIndex);
+    }
+
+    get isPreviousDisabled() {
+        return this.currentPage <= 1;
+    }
+
+    get isNextDisabled() {
+        return this.currentPage >= this.totalPages;
+    }
+
+    get pageRangeLabel() {
+        if (!this.findings || !this.findings.length) {
+            return 'No findings to display';
+        }
+
+        const start = (this.currentPage - 1) * this.pageSize + 1;
+        const end = Math.min(this.currentPage * this.pageSize, this.findings.length);
+
+        return `Showing ${start}-${end} of ${this.findings.length}`;
     }
 
     get healthClass() {
@@ -147,6 +187,18 @@ export default class AuditDashboard extends LightningElement {
             return 'severityBadge medium';
         }
         return 'severityBadge low';
+    }
+
+    handlePreviousPage() {
+        if (this.currentPage > 1) {
+            this.currentPage -= 1;
+        }
+    }
+
+    handleNextPage() {
+        if (this.currentPage < this.totalPages) {
+            this.currentPage += 1;
+        }
     }
 
     handleRunAudit() {

@@ -84,7 +84,7 @@
                             <span class="tableColumn ai">AI Confidence</span>
                             <span class="tableColumn ai">AI Status</span>
                         </div>
-                        <template for:each={findings} for:item="finding" for:index="index">
+                        <template for:each={currentPageFindings} for:item="finding" for:index="index">
                             <div key={finding.componentName} class="tableRow slds-grid slds-grid_align-spread">
                                 <span class="tableColumn component">{finding.componentName}</span>
                                 <span class="tableColumn rule">{finding.ruleName}</span>
@@ -97,6 +97,15 @@
                                 <span class="tableColumn ai">{finding.aiStatus}</span>
                             </div>
                         </template>
+                    </div>
+
+                    <div class="paginationBar">
+                        <span class="pageMeta">{pageRangeLabel}</span>
+                        <div class="pageControls">
+                            <lightning-button label="Previous" onclick={handlePreviousPage} disabled={isPreviousDisabled}></lightning-button>
+                            <span class="pageNumber">Page {currentPage} of {totalPages}</span>
+                            <lightning-button label="Next" onclick={handleNextPage} disabled={isNextDisabled}></lightning-button>
+                        </div>
                     </div>
                 </div>
 
